@@ -1,3 +1,4 @@
+@Library('github.com/releaseworks/jenkinslib')
 pipeline {
     agent any
     tools {
@@ -27,10 +28,9 @@ pipeline {
         }
         stage('kubernetes') {
             steps {
-            withAwsCli(credentialsId: 'vpcterraform', defaultRegion: 'us-east-1') {
-                sh "aws eks --region us-east- update-kubeconfig --name test"
-                sh "kubectl apply -f main.yaml"
-            }
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'vpcterraform', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        AWS("eks --region us-east- update-kubeconfig --name test && kubeclt apply -f main.yaml")
+    }
             }
         }
         stage('input value') {
