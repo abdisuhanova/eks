@@ -27,7 +27,7 @@ pipeline {
         }
         stage('kubernetes') {
             steps {
-            withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'vpcterraform', secretKeyVarible: 'AWS_SECRET_ACCESS_KEY')]) {
+            withAwsCli(credentialsId: 'vpcterraform', defaultRegion: 'us-east-1') {
                 sh "aws eks --region us-east- update-kubeconfig --name test"
                 sh "kubectl apply -f main.yaml"
             }
