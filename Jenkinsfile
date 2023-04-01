@@ -28,6 +28,7 @@ pipeline {
         stage('kubernetes') {
             withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'vpcterraform', secretKeyVarible: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh "aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)"
+                sh "kubectl apply -f main.yaml"
             }
         }
         stage('input value') {
