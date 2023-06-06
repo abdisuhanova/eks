@@ -25,7 +25,7 @@ module "eks" {
   project = "prod"
   node_groups = {  
     cluster1 = {  
-      node_group_name = "test"  
+      node_group_name = "test1"  
       desired_size    = 2 
       max_size        = 3
       min_size        = 1 
