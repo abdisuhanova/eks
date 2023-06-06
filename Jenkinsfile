@@ -33,7 +33,7 @@ pipeline {
     }
             }
         }
-        stage('input value') {
+        stage('rozaaaaaa') {
             input{
                 message "Who are you?"
                 ok "Build"
